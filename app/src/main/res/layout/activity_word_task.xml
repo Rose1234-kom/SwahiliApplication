@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_light_yellow_bg"
+    android:padding="16dp"
+    tools:context=".ui.WordTaskActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/frame_start_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/frame_end_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/frame_top_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/frame_bottom_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.0" />
+
+    <include
+        android:id="@+id/progress_task"
+        layout="@layout/tasks_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/frame_top_guideline"/>
+
+    <include
+        android:id="@+id/task_default_body"
+        layout="@layout/task_default_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/word_2_card"
+        app:layout_constraintTop_toBottomOf="@id/progress_task"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/word_1_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frame_bottom_guideline"
+        app:layout_constraintEnd_toStartOf="@id/word_2_card"
+        app:layout_constraintStart_toEndOf="@id/frame_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/frame_top_guideline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/word_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/word_2_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frame_bottom_guideline"
+        app:layout_constraintEnd_toStartOf="@id/word_3_card"
+        app:layout_constraintStart_toEndOf="@id/word_1_card"
+        app:layout_constraintTop_toBottomOf="@id/frame_top_guideline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/word_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"></com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/word_3_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frame_bottom_guideline"
+        app:layout_constraintEnd_toStartOf="@id/word_4_card"
+        app:layout_constraintStart_toEndOf="@id/word_2_card"
+        app:layout_constraintTop_toBottomOf="@id/frame_top_guideline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/word_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"></com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/word_4_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/frame_bottom_guideline"
+        app:layout_constraintEnd_toStartOf="@id/frame_end_guideline"
+        app:layout_constraintStart_toEndOf="@id/word_3_card"
+        app:layout_constraintTop_toBottomOf="@id/frame_top_guideline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/word_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"></com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <View
+        android:id="@+id/split_line_top"
+        style="@style/split_line_horizontal"
+        app:layout_constraintEnd_toStartOf="@id/frame_end_guideline"
+        app:layout_constraintStart_toEndOf="@id/frame_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/word_2_card" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/answer_container_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/default_light_yellow_bg"
+        app:strokeColor="#00000000"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/check_button"
+        app:layout_constraintEnd_toStartOf="@id/frame_end_guideline"
+        app:layout_constraintStart_toEndOf="@id/frame_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/split_line_top">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/answer_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start_guideline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="0dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end_guideline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="1.0" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/top_guideline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.0" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_guideline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="1.0" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/word_random_1_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="33dp"
+                app:layout_constraintBottom_toTopOf="@id/word_random_4_card"
+                app:layout_constraintEnd_toStartOf="@id/word_random_2_card"
+                app:layout_constraintStart_toEndOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/top_guideline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/word_random_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/word_random_2_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="33dp"
+                app:layout_constraintBottom_toTopOf="@id/word_random_5_card"
+                app:layout_constraintEnd_toStartOf="@id/word_random_3_card"
+                app:layout_constraintStart_toEndOf="@id/word_random_1_card"
+                app:layout_constraintTop_toBottomOf="@id/top_guideline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/word_random_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/word_random_3_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="33dp"
+                app:layout_constraintBottom_toTopOf="@id/word_random_6_card"
+                app:layout_constraintEnd_toStartOf="@id/end_guideline"
+                app:layout_constraintStart_toEndOf="@id/word_random_2_card"
+                app:layout_constraintTop_toBottomOf="@id/top_guideline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/word_random_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/word_random_4_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/bottom_guideline"
+                app:layout_constraintEnd_toStartOf="@id/word_random_5_card"
+                app:layout_constraintStart_toEndOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/word_random_1_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/word_random_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/word_random_5_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/bottom_guideline"
+                app:layout_constraintEnd_toStartOf="@id/word_random_6_card"
+                app:layout_constraintStart_toEndOf="@id/word_random_1_card"
+                app:layout_constraintTop_toBottomOf="@id/word_random_2_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/word_random_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/word_random_6_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/bottom_guideline"
+                app:layout_constraintEnd_toStartOf="@id/end_guideline"
+                app:layout_constraintStart_toEndOf="@id/word_random_5_card"
+                app:layout_constraintTop_toBottomOf="@id/word_random_3_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/word_random_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/check_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_task_check"
+        android:text="check"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@id/frame_bottom_guideline"
+        app:layout_constraintEnd_toStartOf="@id/frame_end_guideline"
+        app:layout_constraintStart_toEndOf="@id/frame_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/answer_container_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

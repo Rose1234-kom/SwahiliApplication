@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_light_yellow_bg">
+
+    <TextView
+        android:id="@+id/textView_swahili_levels"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginBottom="627dp"
+        android:text="Select your level"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_beginner"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="69dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="431dp"
+        android:background="@drawable/bg"
+        android:text="BEGINNER"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="154dp"
+        android:layout_marginBottom="502dp"
+        android:src="@drawable/beginner_level_img" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_intermediate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="59dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="238dp"
+        android:background="@drawable/bg"
+        android:text="INTERMEDIATE"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="300dp"
+        android:src="@drawable/intermediate_level_img" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_advanced"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginBottom="53dp"
+        android:background="@drawable/bg"
+        android:text="ADVANCED"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:layout_width="131dp"
+        android:layout_height="110dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="109dp"
+        android:src="@drawable/advanced_level_img" />
+
+</RelativeLayout>

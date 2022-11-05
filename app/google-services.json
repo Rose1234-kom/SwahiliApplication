@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "594458947470",
+    "project_id": "swahiliapplication-e6b01",
+    "storage_bucket": "swahiliapplication-e6b01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594458947470:android:f38bb630f1aa09d5947edf",
+        "android_client_info": {
+          "package_name": "com.example.swahiliapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594458947470-e4q4045bbuk07lhb7augm6omrp25k507.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj-hTMcSEtWcZilexaMR9QJb6d23NPzDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594458947470-e4q4045bbuk07lhb7augm6omrp25k507.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
