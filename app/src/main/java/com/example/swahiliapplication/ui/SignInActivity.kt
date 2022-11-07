@@ -1,161 +1,102 @@
-package com.example.swahiliapplication.ui;
+package com.example.swahiliapplication.ui
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.EditText
+import androidx.appcompat.widget.AppCompatButton
+import android.widget.ProgressBar
+import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
+import android.app.ProgressDialog
+import android.content.Context
+import android.os.Bundle
+import com.example.swahiliapplication.R
+import android.content.Intent
+import android.text.TextUtils
+import android.util.AttributeSet
+import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.example.swahiliapplication.ui.CreateAccountActivity
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.AuthResult
+import com.example.swahiliapplication.SwahiliLevels
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.tasks.OnCompleteListener
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+class SignInActivity : AppCompatActivity() {
+    lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
+    lateinit var loginBtn: AppCompatButton
+    lateinit var createAccountBtnTextView: TextView
+    lateinit var firebaseAuth: FirebaseAuth
+    lateinit var mGoogleApiClient: GoogleApiClient
 
-import com.example.swahiliapplication.MainActivity;
-import com.example.swahiliapplication.R;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import com.example.swahiliapplication.SwahiliLevels;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-
-
-
-public class SignInActivity extends AppCompatActivity {
-
-       EditText emailEditText,passwordEditText;
-       AppCompatButton loginBtn;
-       ProgressBar progressBar;
-       TextView createAccountBtnTextView;
-       private  FirebaseAuth firebaseAuth;
-       private ProgressDialog progressDialog;
-
-       @Override
-     protected void onCreate(Bundle savedInstanceState) {
-
-           super.onCreate(savedInstanceState);
-           setContentView(R.layout.activity_sign_in);
-
-           emailEditText=findViewById(R.id.email_edit_text);
-           passwordEditText=findViewById(R.id.password_edit_text);
-           loginBtn=findViewById(R.id.login_btn);
-           progressBar=findViewById(R.id.layout_progress_bar);
-           createAccountBtnTextView=findViewById(R.id.create_account_text_view_btn);
-
-           firebaseAuth = FirebaseAuth.getInstance();
-           progressDialog = new ProgressDialog(this);
-           progressDialog.setTitle("Please wait...");
-           progressDialog.setCanceledOnTouchOutside(false);
-
-           loginBtn.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   loginUser();
-               }
-           });
-           createAccountBtnTextView.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   Intent intent = new Intent(SignInActivity.this, CreateAccountActivity.class);
-                   startActivity(intent);
-               }
-           });
-       }
-
-       String email, password;
-    private void loginUser() {
-         email = emailEditText.getText().toString();
-         password = passwordEditText.getText().toString();
+     fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.activity_sign_in,container,false)
+        view.apply {
+            loginBtn = findViewById(R.id.login_btn)
+            emailEditText = findViewById(R.id.email_edit_text)
+            passwordEditText = findViewById(R.id.password_edit_text)
 
 
-        boolean isValidated = validateData(email,password);
-        if(!isValidated){
-            return;
+            firebaseAuth = FirebaseAuth.getInstance()
+
+            loginBtn.setOnClickListener { loginFun() }
         }
-        progressDialog.setMessage("Logging in ...");
-        progressDialog.show();
-
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        // logged in
-                        progressDialog.dismiss();
-                        startActivity(new Intent(SignInActivity.this, SwahiliLevels.class));
-                        finish();
-                    }
-                });
-
-        //loginAccountInFirebase(email,password);
+        return view
     }
 
-    void loginAccountInFirebase(String email,String password){
-           FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-           changeInProgress(true);
-           firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-               @Override
-               public void onComplete(@NonNull Task<AuthResult> task) {
-                   changeInProgress(false);
-                   if(task.isSuccessful()){
-                       //login is success
-                       if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                           //go to mainactivity
-                           startActivity(new Intent(SignInActivity.this, SwahiliLevels.class));
-                       }else {
-                           SwahiliLevels.showToast(SignInActivity.this,"Email not verified,Please verify your email.");
+    private fun loginFun() {
+        val email = emailEditText.text.toString().trim()
+        val password = passwordEditText.text.toString().trim()
+        var error = 0
 
-                       }
-                   }else{
-                       //login failed
-                       SwahiliLevels.showToast(SignInActivity.this,task.getException().getLocalizedMessage());
-                   }
-               }
-           });
 
-    }
 
-    void changeInProgress(boolean inProgress){
-        if(inProgress){
-            progressBar.setVisibility(View.VISIBLE);
-            loginBtn.setVisibility(View.GONE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-            loginBtn.setVisibility(View.VISIBLE);
+        if ( TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            error = 1
+        }
+
+        if(error!=1){
+
+        }
+
+
+        when (error) {
+            1 -> {
+                if(TextUtils.isEmpty(email))
+                    passwordEditText.error = "must not be empty"
+                if(TextUtils.isEmpty(password))
+                    passwordEditText.error = "must not be empty"
+            }
         }
     }
 
-    boolean validateData(String email,String password){
+    private fun signIn(it: Any, email: String, password: String) {
+
+    }
+
+
+
+
+
+
+
+    fun validateData(email: String?, password: String): Boolean {
         //validate the data that are input by user
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEditText.setError("Email is invalid");
-            return false;
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText!!.error = "Email is invalid"
+            return false
         }
-        if(password.length()<6){
-            passwordEditText.setError("Password length is invalid");
-            return false;
+        if (password.length < 6) {
+            passwordEditText!!.error = "Password length is invalid"
+            return false
         }
-
-        return true;
+        return true
     }
-
 }

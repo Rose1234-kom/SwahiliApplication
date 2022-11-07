@@ -64,7 +64,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         loginBtnTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CreateAccountActivity.this, SignInActivity.class);
+                Intent intent = new Intent(CreateAccountActivity.this, SwahiliLevels.class);
                 startActivity(intent);
             }
         });
@@ -132,18 +132,19 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 //db updated
                 progressDialog.dismiss();
-                startActivity(new Intent(CreateAccountActivity.this, SignInActivity.class));
-                finish();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 // failed updating db
                 progressDialog.dismiss();
-                startActivity(new Intent(CreateAccountActivity.this, SignInActivity.class));
-                finish();
+//                startActivity(new Intent(CreateAccountActivity.this, SignInActivity.class));
+//                finish();
             }
         });
+        startActivity(new Intent(CreateAccountActivity.this, SwahiliLevels.class));
+        finish();
     }
 
     void changeInProgress(boolean inProgress){

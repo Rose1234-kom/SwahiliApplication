@@ -1,15 +1,13 @@
 package com.example.swahiliapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.swahiliapplication.ui.SignInActivity;
-import com.example.swahiliapplication.ui.WelcomeActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 
@@ -28,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(MainActivity.this, SignInActivity.class);
-                startActivity(intent);
+//                Intent intent= new Intent(MainActivity.this, SignInActivity.class);
+//                startActivity(intent);
             }
         });
 

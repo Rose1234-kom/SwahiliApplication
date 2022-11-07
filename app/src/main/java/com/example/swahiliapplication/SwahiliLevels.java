@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.swahiliapplication.ui.SignInActivity;
-
 public class SwahiliLevels extends AppCompatActivity {
     AppCompatButton beginnerBtn;
     AppCompatButton intermediateBtn;

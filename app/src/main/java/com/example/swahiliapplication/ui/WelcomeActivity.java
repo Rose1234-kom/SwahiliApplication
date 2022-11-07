@@ -56,7 +56,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void goToSignInScreen() {
-        startActivity(new Intent(WelcomeActivity.this,SignInActivity.class));
+        startActivity(new Intent(WelcomeActivity.this,SwahiliLevels.class));
         finish();
     }
 
