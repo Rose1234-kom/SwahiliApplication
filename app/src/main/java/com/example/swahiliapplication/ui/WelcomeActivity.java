@@ -7,22 +7,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.swahiliapplication.R;
 import com.example.swahiliapplication.SwahiliLevels;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    ImageView googleBtn;
     
     @BindView(R.id.get_started_button)
     //Button getStartedButton;
     AppCompatButton getStartedButton;
     
-    @BindView(R.id.log_in_linkbtn)
-    Button LogInLinkBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +48,19 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                goToGetStartedScreen();
-            }
-        });
-
-        LogInLinkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
                 goToSignInScreen();
             }
         });
     }
 
     private void goToSignInScreen() {
-        startActivity(new Intent(WelcomeActivity.this,SwahiliLevels.class));
+        startActivity(new Intent(WelcomeActivity.this,HomeActivity.class));
         finish();
     }
 
 
     private void goToGetStartedScreen() {
-        startActivity(new Intent(WelcomeActivity.this,CreateAccountActivity.class));
+        startActivity(new Intent(WelcomeActivity.this,SignInActivity.class));
         finish();
     }
 

@@ -38,6 +38,12 @@
         android:text="BEGINNER"
         android:textColor="@color/white" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container"/>
+
+
     <ImageView
         android:layout_width="136dp"
         android:layout_height="wrap_content"

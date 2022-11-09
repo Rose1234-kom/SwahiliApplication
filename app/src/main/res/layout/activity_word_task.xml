@@ -362,23 +362,10 @@
         android:text="check"
         android:textColor="@color/white"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@id/continue_button"
-        app:layout_constraintEnd_toStartOf="@id/frame_end_guideline"
-        app:layout_constraintStart_toEndOf="@id/frame_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/answer_container_card" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/continue_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_task_check"
-        android:text="Continue"
-        android:textColor="@color/white"
-        android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@id/frame_bottom_guideline"
         app:layout_constraintEnd_toStartOf="@id/frame_end_guideline"
         app:layout_constraintStart_toEndOf="@id/frame_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/check_button" />
+        app:layout_constraintTop_toBottomOf="@id/answer_container_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

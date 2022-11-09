@@ -5,16 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.swahiliapplication.ConstantValues;
 import com.example.swahiliapplication.R;
 import com.example.swahiliapplication.SwahiliLevels;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,98 +25,120 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import java.util.HashMap;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-    EditText emailEditText,passwordEditText,confirmPasswordEditText;
+    EditText userNameText,passwordEditText,confirmPasswordEditText;
     AppCompatButton createAccountBtn;
     ProgressBar progressBar;
-    TextView loginBtnTextView;
 
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
-
+    ConstantValues constantValues=new ConstantValues();
+    SharedPreferences emailPref;
+    String emailAddress, userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-
-        emailEditText=findViewById(R.id.email_edit_text);
-        passwordEditText=findViewById(R.id.password_edit_text);
-        confirmPasswordEditText=findViewById(R.id.confirm_password_edit_text);
+        emailPref=getSharedPreferences("emailAddress", MODE_PRIVATE);
+        emailAddress=emailPref.getString("emailAddress","");
+        userNameText =findViewById(R.id.username_edit_text);
         createAccountBtn=findViewById(R.id.create_account_btn);
         progressBar=findViewById(R.id.layout_progress_bar);
-        loginBtnTextView=findViewById(R.id.log_text_view_btn);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
-
+handleReceivedFirebaseLink();
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createAccount();
             }
         });
-        loginBtnTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CreateAccountActivity.this, SwahiliLevels.class);
-                startActivity(intent);
-            }
-        });
     }
 
-    String email, password, confirmPassword;
+    String userName;
     private void createAccount() {
-        email = emailEditText.getText().toString();
-        password = passwordEditText.getText().toString();
-        confirmPassword = confirmPasswordEditText.getText().toString();
-
-        boolean isValidated = validateData(email,password,confirmPassword);
+        userName = userNameText.getText().toString();
+        boolean isValidated = validateData(userName);
         if(!isValidated){
             return;
         }
-//        if(password.length()<6){
-//            Toast.makeText(this, "Password should be atleast 6 character ling ", Toast.LENGTH_SHORT).show();
-//        }
-//        if(!password.equals(confirmPassword)){
-//            Toast.makeText(this,"Password do not match ", Toast.LENGTH_SHORT).show();
-//        }
-        
-        createAccountInFirebase();
     }
 
-    private void createAccountInFirebase() {
-        //changeInProgress(true);
-        progressDialog.setMessage("Creating account ...");
-        progressDialog.show();
-
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+    private void handleReceivedFirebaseLink(){
+        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent()).addOnSuccessListener(new OnSuccessListener<PendingDynamicLinkData>() {
             @Override
-            public void onSuccess(AuthResult authResult) {
-                // account created
-                saveFirebaseData();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // failed creating account
-                progressDialog.dismiss();
-                Toast.makeText(CreateAccountActivity.this,""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                Uri signUpLink = null;
+                if (pendingDynamicLinkData != null) {
+                    signUpLink = pendingDynamicLinkData.getLink();
+                } else {
 
+                }
+                if (signUpLink != null) {
+                    String verifyEmailLink = getIntent().getData().toString();
+                    if (ConstantValues.getFirebaseAuth().isSignInWithEmailLink(verifyEmailLink)) {
+                        if (emailAddress != null) {
+                            try {
+                                ConstantValues.getFirebaseAuth().signInWithEmailLink(emailAddress, verifyEmailLink).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            AuthResult authResult = task.getResult();
+                                            if (authResult.getAdditionalUserInfo().isNewUser()) {
+                                                userId=authResult.getUser().getUid();
+                                                initialiseData(authResult.getUser().getUid());
+                                            }
+                                            if (authResult.getUser().isEmailVerified()) {
+                                                readExistingUserInfo(authResult.getUser().getUid());
+                                            } else {
+
+                                            }
+                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
+
+                    }
+                }
             }
         });
-
-
-
     }
 
+    private void initialiseData(String userId){
+        final String timestamp = "" + System.currentTimeMillis();
+        HashMap <String, Object > hashMap = new HashMap<>();
+        hashMap.put("uid", ""+ userId);
+        hashMap.put("email",""+ emailAddress);
+        hashMap.put("userName","");
+        hashMap.put("timestamp", ""+timestamp);
+        DatabaseReference ref = constantValues.getFirebaseDatabase().getReference("Users").child(userId);
+        ref.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+
+                }else{
+
+                }
+            }
+        });
+    }
     private void saveFirebaseData() {
         progressDialog.setMessage("Saving Account info...");
 
@@ -123,28 +147,44 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         HashMap <String, Object > hashMap = new HashMap<>();
         hashMap.put("uid", ""+ firebaseAuth.getUid());
-        hashMap.put("email",""+email);
+        hashMap.put("email",""+ userName);
         hashMap.put("timestamp", ""+timestamp);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                //db updated
-                progressDialog.dismiss();
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+        HashMap <String, Object > userNameMap = new HashMap<>();
+        hashMap.put("uid", ""+ userId);
+        hashMap.put("timestamp", ""+timestamp);
+
+        HashMap <String, Object > userNameUpdMap = new HashMap<>();
+        hashMap.put("userName", ""+ userName);
+        hashMap.put("timestamp", ""+timestamp);
+
+
+        DatabaseReference ref = constantValues.getFirebaseDatabase().getReference("Users");
+        DatabaseReference userNameRef = constantValues.getFirebaseDatabase().getReference("UserName").child(userName);
+        userNameRef.setValue(userNameMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                // failed updating db
-                progressDialog.dismiss();
-//                startActivity(new Intent(CreateAccountActivity.this, SignInActivity.class));
-//                finish();
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+
+                }else{
+
+                }
             }
         });
-        startActivity(new Intent(CreateAccountActivity.this, SwahiliLevels.class));
-        finish();
+
+        ref.child(userId).updateChildren(userNameUpdMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    progressDialog.dismiss();
+                    startActivity(new Intent(CreateAccountActivity.this, SwahiliLevels.class));
+                    finish();
+                }else{
+                    progressDialog.dismiss();
+                }
+            }
+        });
     }
 
     void changeInProgress(boolean inProgress){
@@ -157,21 +197,42 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-    boolean validateData(String email,String password,String confirmPassword){
+    boolean validateData(String userName){
         //validate the data that are input by user
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEditText.setError("Email is invalid");
-            return false;
-        }
-        if(password.length()<6){
-            passwordEditText.setError("Password length is invalid");
-            return false;
-        }
-        if(!password.equals(confirmPassword)){
-            confirmPasswordEditText.setError("Password not matched");
-            return false;
-        }
+        DatabaseReference userNameRef = constantValues.getFirebaseDatabase().getReference("UserName").child(userName);
+        userNameRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    DataSnapshot snapshot=task.getResult();
+                    if(snapshot.exists()){
+                        userNameText.setError("Sorry. This username has been taken");
+                        userNameText.requestFocus();
+                        return;
+                    }else{
+                        saveFirebaseData();
+                    }
+                }
+            }
+        });
         return true;
+    }
+
+    private void readExistingUserInfo(String userId){
+        DatabaseReference reference=constantValues.getFirebaseDatabase().getReference("Users").child(userId);
+        reference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    DataSnapshot snapshot=task.getResult();
+                    if(snapshot.exists()){
+                        //Check for username and email
+                        startActivity(new Intent(CreateAccountActivity.this, SwahiliLevels.class));
+                    }else{
+
+                    }
+                }
+            }
+        });
     }
 }
