@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SplashScreenActivity"
-    android:background="@color/default_light_yellow_bg">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start_guideline"
         android:layout_width="match_parent"
@@ -33,13 +30,5 @@
         android:layout_height="wrap_content"
         app:layout_constraintGuide_percent="1.0"
         android:orientation="horizontal"/>
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@id/start_guideline"
-        app:layout_constraintEnd_toStartOf="@id/end_guideline"
-        app:layout_constraintTop_toBottomOf="@id/top_guideline"
-        app:layout_constraintBottom_toTopOf="@id/bottom_guideline"
-        android:src="@drawable/my_logo"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

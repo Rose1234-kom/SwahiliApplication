@@ -12,7 +12,7 @@ import com.example.swahiliapplication.R;
 import com.example.swahiliapplication.SwahiliLevels;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +23,13 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 if (firebaseUser != null) {
-                    Intent mainIntent = new Intent(SplashScreen.this, SwahiliLevels.class);
-                    SplashScreen.this.startActivity(mainIntent);
-                    SplashScreen.this.finish();
+                    Intent mainIntent = new Intent(SplashScreenActivity.this, HomeActivity.class);
+                    SplashScreenActivity.this.startActivity(mainIntent);
+                    SplashScreenActivity.this.finish();
                 } else {
-                    Intent mainIntent = new Intent(SplashScreen.this, WelcomeActivity.class);
-                    SplashScreen.this.startActivity(mainIntent);
-                    SplashScreen.this.finish();
+                    Intent mainIntent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                    SplashScreenActivity.this.startActivity(mainIntent);
+                    SplashScreenActivity.this.finish();
                 }
             }
         }, 3000);
