@@ -5,12 +5,12 @@
         android:title="Home"
         android:icon="@drawable/ic_home_icon" />
 
+    <item android:id="@+id/swahiliHighScore"
+        android:title="My Score"
+        android:icon="@drawable/ic_star_24"/>
     <item android:id="@+id/swahiliProfile"
         android:title="Profile"
         android:icon="@drawable/ic_profile_24"/>
 
-    <item android:id="@+id/swahiliHighScore"
-        android:title="High Score"
-        android:icon="@drawable/ic_star_24"/>
 
 </menu>

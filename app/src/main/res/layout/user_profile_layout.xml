@@ -31,4 +31,80 @@
         app:layout_constraintGuide_percent="1.0"
         android:orientation="horizontal"/>
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/settings_img"
+        android:src="@drawable/ic_settings_icon"
+        android:layout_marginTop="11dp"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_guideline"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_guideline"
+        app:layout_constraintBottom_toTopOf="@id/my_profile_text"
+        android:id="@+id/user_profile_img"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_profile_text"
+        android:text="My Profile"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/user_profile_img"
+        app:layout_constraintBottom_toTopOf="@id/level_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/username_text"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/user_profile_img"
+        app:layout_constraintBottom_toTopOf="@id/level_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_text"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/username_text"
+        app:layout_constraintBottom_toTopOf="@id/purpose_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/purpose_text"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/level_text"
+        app:layout_constraintBottom_toTopOf="@id/goal_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/goal_text"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/purpose_text"
+        app:layout_constraintBottom_toTopOf="@id/nationality_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nationality_text"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/user_profile_img"
+        app:layout_constraintBottom_toTopOf="@id/bottom_guideline"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,7 @@ import com.example.swahiliapplication.SwahiliLevels;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
@@ -96,7 +97,6 @@ public class WordTaskActivity extends AppCompatActivity {
 
     TextView textView1;
 
-    @BindView(R.id.task_progress_bar)
     ProgressBar progressBar;
 
 
@@ -105,15 +105,19 @@ public class WordTaskActivity extends AppCompatActivity {
 
     int progressBarValue;
 
+    String action;
     Context context = WordTaskActivity.this;
+    int prog;
 
-
+Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_task);
+        progressBar=findViewById(R.id.task_progress_bar);
         dataSource = new FixedDataSource();
         imageView = findViewById(R.id.imageview);
+        intent=getIntent();
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
@@ -125,6 +129,8 @@ public class WordTaskActivity extends AppCompatActivity {
             }
         });
 
+        progressBar.setMax(5);
+        prog=progressBar.getProgress();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,16 +140,23 @@ public class WordTaskActivity extends AppCompatActivity {
 
 
         ButterKnife.bind(this);
-        if(getIntent().getStringExtra("Action").equals("Introduction")) {
+        if(intent.hasExtra("Action")){
+            action=intent.getStringExtra("Action");
+        if(intent.getStringExtra("Action").equals("Introduction")) {
             dataSource.setupCorrectWords();
             dataSource.setupWordsToConfuse();
             dataSource.setupSentencesToTranslate();
 
-            setupSentenceAndWords();
+            setupSentenceAndWords(dataSource.getSentenceToTranslateList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
 
-        }else if(getIntent().getStringExtra("Action").equals("Greetings")){
+        }else if(intent.getStringExtra("Action").equals("Greetings")){
             dataSource.setupGreetingsToTranslate();
-
+            setupSentenceAndWords(dataSource.getGreetingsToTranslateList(), dataSource.getGreetingsWordCorrectList(), dataSource.getGreetingsWordConfuseList());
+        }
+        else if(intent.getStringExtra("Action").equals("Numbers")){
+            dataSource.setupNumbersToTranslate();
+            setupSentenceAndWords(dataSource.getNumbersToTranslateList(), dataSource.getNumbersWordCorrectList(), dataSource.getNumbersWordConfuseList());
+        }
         }
         showWordsOnLine();
         // initData();
@@ -155,7 +168,7 @@ public class WordTaskActivity extends AppCompatActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkAnswer();
+                checkAnswer(action);
             }
         });
     }
@@ -418,17 +431,31 @@ public class WordTaskActivity extends AppCompatActivity {
     }
 
 
-    private void checkAnswer() {
-        //Concatenate words from cards and match with what's stored in the arraylist
-        if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).equals(dataSource.getSentenceTranslatedList().get(pos))) {
-            showDialogCorrect();
-        } else if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).concat(" ").concat(wordThreeText.getText().toString()).equals(dataSource.getSentenceTranslatedList().get(pos))) {
-            showDialogCorrect();
-        } else if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).concat(" ").concat(wordThreeText.getText().toString()).concat(" ").concat(wordFourText.getText().toString()).equals(dataSource.getSentenceTranslatedList().get(pos))) {
-            showDialogCorrect();
-        } else {
-            showDialogForWrong();
+    private void checkAnswer(String action) {
+        if(action.equals("Introduction")){
+            if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).equals(dataSource.getSentenceTranslatedList().get(pos))) {
+                showDialogCorrect();
+            } else if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).concat(" ").concat(wordThreeText.getText().toString()).equals(dataSource.getSentenceTranslatedList().get(pos))) {
+                showDialogCorrect();
+            } else if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).concat(" ").concat(wordThreeText.getText().toString()).concat(" ").concat(wordFourText.getText().toString()).equals(dataSource.getSentenceTranslatedList().get(pos))) {
+                showDialogCorrect();
+            } else {
+                showDialogForWrong();
+            }
+        }else if(action.equals("Greetings")){
+            if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).equals(dataSource.getGreetingsTranslatedList().get(pos))) {
+                showDialogCorrect();
+            } else if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).concat(" ").concat(wordThreeText.getText().toString()).equals(dataSource.getGreetingsTranslatedList().get(pos))) {
+                showDialogCorrect();
+            } else if (wordOneText.getText().toString().concat(" ").concat(wordTwoText.getText().toString()).concat(" ").concat(wordThreeText.getText().toString()).concat(" ").concat(wordFourText.getText().toString()).equals(dataSource.getGreetingsTranslatedList().get(pos))) {
+                showDialogCorrect();
+            } else {
+                showDialogForWrong();
+            }
+        }else if(action.equals("Numbers")){
+
         }
+        //Concatenate words from cards and match with what's stored in the arraylist
     }
 
     private void showDialogCorrect() {
@@ -437,8 +464,15 @@ public class WordTaskActivity extends AppCompatActivity {
         dialog.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                progressBar.setProgress(prog++);
                 dialogInterface.dismiss();
-                setupSentenceAndWords();
+                if(action.equals("Introduction")){
+                    setupSentenceAndWords(dataSource.getSentenceToTranslateList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
+                }else if(action.equals("Greetings")){
+                    setupSentenceAndWords(dataSource.getGreetingsToTranslateList(), dataSource.getGreetingsWordCorrectList(), dataSource.getGreetingsWordConfuseList());
+                }else if(action.equals("Numbers")){
+                    setupSentenceAndWords(dataSource.getNumbersToTranslateList(), dataSource.getNumbersWordCorrectList(), dataSource.getNumbersWordConfuseList());
+                }
             }
         });
         AlertDialog alert = dialog.create();
@@ -452,7 +486,14 @@ public class WordTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                setupSentenceAndWords();
+                progressBar.setProgress(prog++);
+                if(action.equals("Introduction")){
+                    setupSentenceAndWords(dataSource.getSentenceToTranslateList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
+                }else if(action.equals("Greetings")){
+                    setupSentenceAndWords(dataSource.getGreetingsToTranslateList(), dataSource.getGreetingsWordCorrectList(), dataSource.getGreetingsWordConfuseList());
+                }else if(action.equals("Numbers")){
+                    setupSentenceAndWords(dataSource.getNumbersToTranslateList(), dataSource.getNumbersWordCorrectList(), dataSource.getNumbersWordConfuseList());
+                }
             }
         });
         AlertDialog alert = dialog.create();
@@ -502,6 +543,54 @@ public class WordTaskActivity extends AppCompatActivity {
         } else if (dataSource.getWordSetConfuse().get(index).length == 2) {
             wordRandTwoText.setText(dataSource.getWordSetConfuse().get(index)[0]);
             wordRandThreeText.setText(dataSource.getWordSetConfuse().get(index)[1]);
+        }
+    }
+
+    private void setupSentenceAndWords(ArrayList<String> elementsTranslate, ArrayList<String[]> elementsWordCorrect, ArrayList<String[]> elementsWordConfuse) {
+
+        int index = new Random().nextInt(elementsTranslate.size());
+        pos = index;
+        Log.i("Index", String.valueOf(pos));
+        questionText.setText(elementsTranslate.get(index));
+        wordOne.setVisibility(View.INVISIBLE);
+        wordTwo.setVisibility(View.INVISIBLE);
+        wordThree.setVisibility(View.INVISIBLE);
+        wordFour.setVisibility(View.INVISIBLE);
+        wordRandOne.setVisibility(View.VISIBLE);
+        wordRandTwo.setVisibility(View.VISIBLE);
+        wordRandThree.setVisibility(View.VISIBLE);
+        wordRandFour.setVisibility(View.VISIBLE);
+        wordRandFive.setVisibility(View.VISIBLE);
+        wordRandSix.setVisibility(View.VISIBLE);
+        //Setup words such that they get randomised in the container
+        if(elementsWordCorrect.get(index).length==1){
+            wordRandTwoText.setText(elementsWordCorrect.get(index)[0]);
+        }
+        else if (elementsWordCorrect.get(index).length == 2) {
+            wordRandFiveText.setText(elementsWordCorrect.get(index)[0]);
+            wordRandSixText.setText(elementsWordCorrect.get(index)[1]);
+        } else if (elementsWordCorrect.get(index).length == 3) {
+            wordRandOneText.setText(elementsWordCorrect.get(index)[0]);
+            wordRandThreeText.setText(elementsWordCorrect.get(index)[2]);
+            wordRandFourText.setText(elementsWordCorrect.get(index)[1]);
+        } else if (elementsWordCorrect.get(index).length == 4) {
+            wordRandOneText.setText(elementsWordCorrect.get(index)[0]);
+            wordRandFiveText.setText(elementsWordCorrect.get(index)[2]);
+            wordRandSixText.setText(elementsWordCorrect.get(index)[1]);
+            wordRandFourText.setText(elementsWordCorrect.get(index)[3]);
+        }
+        if (elementsWordConfuse.get(index).length == 4) {
+            wordRandThreeText.setText(elementsWordConfuse.get(index)[0]);
+            wordRandFourText.setText(elementsWordConfuse.get(index)[3]);
+            wordRandOneText.setText(elementsWordConfuse.get(index)[2]);
+            wordRandTwoText.setText(elementsWordConfuse.get(index)[1]);
+        } else if (elementsWordConfuse.get(index).length == 3) {
+            wordRandTwoText.setText(elementsWordConfuse.get(index)[2]);
+            wordRandFiveText.setText(elementsWordConfuse.get(index)[0]);
+            wordRandSixText.setText(elementsWordConfuse.get(index)[1]);
+        } else if (elementsWordConfuse.get(index).length == 2) {
+            wordRandTwoText.setText(elementsWordConfuse.get(index)[0]);
+            wordRandThreeText.setText(elementsWordConfuse.get(index)[1]);
         }
     }
 
