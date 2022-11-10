@@ -12,8 +12,8 @@ public class FixedDataSource {
     private ArrayList<String[]> wordSetCorrect = new ArrayList<>();
     private ArrayList<String> greetingsToTranslateList=new ArrayList<>();
     private ArrayList<String> greetingsTranslatedList=new ArrayList<>();
-    private ArrayList<String[]> greetingsWordCorrectList=new ArrayList<>();
-    private ArrayList<String[]> greetingsWordConfuseList=new ArrayList<>();
+    private ArrayList<String> greetingsWordCorrectList=new ArrayList<>();
+    private ArrayList<String> greetingsWordConfuseList=new ArrayList<>();
 
     private ArrayList<String> numbersToTranslateList=new ArrayList<>();
     private ArrayList<String> numbersTranslatedList=new ArrayList<>();
@@ -77,29 +77,29 @@ public class FixedDataSource {
     }
 
     public void setupGreetingsToTranslate(){
-        greetingsToTranslateList.add(0,"Habari Za Asubuhi");
-        greetingsToTranslateList.add(1,"Habari za jioni");
-        greetingsToTranslateList.add(2,"U hali gani");
-        greetingsToTranslateList.add(3,"Tuonane kesho");
-        greetingsToTranslateList.add(4,"Uende salama");
+        greetingsToTranslateList.add(0,"");
+        greetingsToTranslateList.add(1,"");
+        greetingsToTranslateList.add(2,"");
+        greetingsToTranslateList.add(3,"");
+        greetingsToTranslateList.add(4,"");
 
-        greetingsTranslatedList.add(0,"Good morning");
-        greetingsTranslatedList.add(1, "Good evening");
-        greetingsTranslatedList.add(2,"How are you fairing?");
-        greetingsTranslatedList.add(3,"Let' meet tomorrow");
-        greetingsTranslatedList.add(4,"Go safely");
+        greetingsTranslatedList.add(0,"");
+        greetingsTranslatedList.add(1, "");
+        greetingsTranslatedList.add(2,"");
+        greetingsTranslatedList.add(3,"");
+        greetingsTranslatedList.add(4,"");
 
-        greetingsWordCorrectList.add(0,new String[]{"morning", "Good"});
-        greetingsWordCorrectList.add(1,new String[]{"evening","Good"});
-        greetingsWordCorrectList.add(2,new String[]{"fairing","How","you","are"});
-        greetingsWordCorrectList.add(3,new String[]{"meet","Lets", "tomorrow"});
-        greetingsWordCorrectList.add(4,new String[]{"safely","Go"});
+        greetingsWordCorrectList.add(0,"");
+        greetingsWordCorrectList.add(1,"");
+        greetingsWordCorrectList.add(2,"");
+        greetingsWordCorrectList.add(3,"");
+        greetingsWordCorrectList.add(4,"");
 
-        greetingsWordConfuseList.add(0,new String[]{""});
-        greetingsWordConfuseList.add(1,new String[]{""});
-        greetingsWordConfuseList.add(2,new String[]{""});
-        greetingsWordConfuseList.add(3,new String[]{""});
-        greetingsWordConfuseList.add(4,new String[]{""});
+        greetingsWordConfuseList.add(0,"");
+        greetingsWordConfuseList.add(1,"");
+        greetingsWordConfuseList.add(2,"");
+        greetingsWordConfuseList.add(3,"");
+        greetingsWordConfuseList.add(4,"");
     }
 
     public void setupNumbersToTranslate(){
@@ -115,17 +115,17 @@ public class FixedDataSource {
         numbersTranslatedList.add(3,"Four");
         numbersTranslatedList.add(4,"Five");
 
-        numbersWordCorrectList.add(0, new String[]{"One"});
-        numbersWordCorrectList.add(1,new String[]{"Two"});
-        numbersWordCorrectList.add(2,new String[]{"Three"});
-        numbersWordCorrectList.add(3,new String[]{"Four"});
-        numbersWordCorrectList.add(4,new String[]{"Five"});
+        numbersWordCorrectList.add(0,new String[]{"One"});
+        numbersWordCorrectList.add(1, new String[]{"Two"});
+        numbersWordCorrectList.add(2, new String[]{"Three"});
+        numbersWordCorrectList.add(3, new String[]{"Four"});
+        numbersWordCorrectList.add(4, new String[]{"Five"});
 
-        numbersWordConfuseList.add(0,new String[]{"Uno","On"});
-        numbersWordConfuseList.add(1,new String[]{"Twi","Twa"});
-        numbersWordConfuseList.add(2,new String[]{"Thre","Tree"});
-        numbersWordConfuseList.add(3,new String[]{"Fou"});
-        numbersWordConfuseList.add(4,new String[]{"Fi","ve"});
+        numbersWordConfuseList.add(0, new String[]{"Un","On","Uno"});
+        numbersWordConfuseList.add(1, new String[]{"To","Deu","Tw"});
+        numbersWordConfuseList.add(2, new String[]{"Tree","Thri"});
+        numbersWordConfuseList.add(3, new String[]{"For","Fur"});
+        numbersWordConfuseList.add(4, new String[]{"Fi","Ve"});
     }
 
     public void setupColoursToTranslate(){

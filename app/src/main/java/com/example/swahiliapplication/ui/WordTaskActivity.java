@@ -145,6 +145,9 @@ public class WordTaskActivity extends AppCompatActivity {
             dataSource.setupGreetingsToTranslate();
 
         }
+        else if(getIntent().getStringExtra("Action").equals("Numbers")){
+            dataSource.setupNumbersToTranslate();
+        }
         showWordsOnLine();
         // initData();
     }
