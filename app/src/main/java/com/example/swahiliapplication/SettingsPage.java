@@ -5,11 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.swahiliapplication.ui.WelcomeActivity;
 
 public class SettingsPage extends Fragment {
 
@@ -32,6 +35,7 @@ public class SettingsPage extends Fragment {
             public void onClick(View view) {
                 if(ConstantValues.getFirebaseAuth().getCurrentUser()!=null) {
                     ConstantValues.getFirebaseAuth().signOut();
+                    startActivity(new Intent(getActivity(), WelcomeActivity.class));
                 }
             }
         });

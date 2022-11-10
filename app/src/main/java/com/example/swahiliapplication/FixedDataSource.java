@@ -12,8 +12,8 @@ public class FixedDataSource {
     private ArrayList<String[]> wordSetCorrect = new ArrayList<>();
     private ArrayList<String> greetingsToTranslateList=new ArrayList<>();
     private ArrayList<String> greetingsTranslatedList=new ArrayList<>();
-    private ArrayList<String> greetingsWordCorrectList=new ArrayList<>();
-    private ArrayList<String> greetingsWordConfuseList=new ArrayList<>();
+    private ArrayList<String[]> greetingsWordCorrectList=new ArrayList<>();
+    private ArrayList<String[]> greetingsWordConfuseList=new ArrayList<>();
 
     private ArrayList<String> numbersToTranslateList=new ArrayList<>();
     private ArrayList<String> numbersTranslatedList=new ArrayList<>();
@@ -26,7 +26,101 @@ public class FixedDataSource {
     private ArrayList<String> coloursWordConfuseList=new ArrayList<>();
 
 
+    public ArrayList<String> getGreetingsToTranslateList() {
+        return greetingsToTranslateList;
+    }
 
+    public void setGreetingsToTranslateList(ArrayList<String> greetingsToTranslateList) {
+        this.greetingsToTranslateList = greetingsToTranslateList;
+    }
+
+    public ArrayList<String> getGreetingsTranslatedList() {
+        return greetingsTranslatedList;
+    }
+
+    public void setGreetingsTranslatedList(ArrayList<String> greetingsTranslatedList) {
+        this.greetingsTranslatedList = greetingsTranslatedList;
+    }
+
+    public ArrayList<String[]> getGreetingsWordCorrectList() {
+        return greetingsWordCorrectList;
+    }
+
+    public void setGreetingsWordCorrectList(ArrayList<String[]> greetingsWordCorrectList) {
+        this.greetingsWordCorrectList = greetingsWordCorrectList;
+    }
+
+    public ArrayList<String[]> getGreetingsWordConfuseList() {
+        return greetingsWordConfuseList;
+    }
+
+    public void setGreetingsWordConfuseList(ArrayList<String[]> greetingsWordConfuseList) {
+        this.greetingsWordConfuseList = greetingsWordConfuseList;
+    }
+
+    public ArrayList<String> getNumbersToTranslateList() {
+        return numbersToTranslateList;
+    }
+
+    public void setNumbersToTranslateList(ArrayList<String> numbersToTranslateList) {
+        this.numbersToTranslateList = numbersToTranslateList;
+    }
+
+    public ArrayList<String> getNumbersTranslatedList() {
+        return numbersTranslatedList;
+    }
+
+    public void setNumbersTranslatedList(ArrayList<String> numbersTranslatedList) {
+        this.numbersTranslatedList = numbersTranslatedList;
+    }
+
+    public ArrayList<String[]> getNumbersWordCorrectList() {
+        return numbersWordCorrectList;
+    }
+
+    public void setNumbersWordCorrectList(ArrayList<String[]> numbersWordCorrectList) {
+        this.numbersWordCorrectList = numbersWordCorrectList;
+    }
+
+    public ArrayList<String[]> getNumbersWordConfuseList() {
+        return numbersWordConfuseList;
+    }
+
+    public void setNumbersWordConfuseList(ArrayList<String[]> numbersWordConfuseList) {
+        this.numbersWordConfuseList = numbersWordConfuseList;
+    }
+
+    public ArrayList<String> getColoursToTranslateList() {
+        return coloursToTranslateList;
+    }
+
+    public void setColoursToTranslateList(ArrayList<String> coloursToTranslateList) {
+        this.coloursToTranslateList = coloursToTranslateList;
+    }
+
+    public ArrayList<String> getColoursTranslatedList() {
+        return coloursTranslatedList;
+    }
+
+    public void setColoursTranslatedList(ArrayList<String> coloursTranslatedList) {
+        this.coloursTranslatedList = coloursTranslatedList;
+    }
+
+    public ArrayList<String> getColoursWordCorrectList() {
+        return coloursWordCorrectList;
+    }
+
+    public void setColoursWordCorrectList(ArrayList<String> coloursWordCorrectList) {
+        this.coloursWordCorrectList = coloursWordCorrectList;
+    }
+
+    public ArrayList<String> getColoursWordConfuseList() {
+        return coloursWordConfuseList;
+    }
+
+    public void setColoursWordConfuseList(ArrayList<String> coloursWordConfuseList) {
+        this.coloursWordConfuseList = coloursWordConfuseList;
+    }
 
     public ArrayList<String> getSentenceToTranslateList() {
         return sentenceToTranslateList;
@@ -74,32 +168,50 @@ public class FixedDataSource {
         sentenceTranslatedList.add(2, "Where do you live?");
         sentenceTranslatedList.add(3, "Thank you very much");
         sentenceTranslatedList.add(4, "Excuse me");
+
+        String[] wordConfuseOne={"Mine","Is","Why"};
+        String[] wordConfuseTwo={"Yours","Are"};
+        String[] wordConfuseThree= {"Leave","Does"};
+        String[] wordConfuseFour={"Too","Thanks"};
+        String[] wordConfuseFive={"Excuses","You"};
+
+        wordSetConfuse.add(0, wordConfuseOne);
+        wordSetConfuse.add(1, wordConfuseTwo);
+        wordSetConfuse.add(2, wordConfuseThree);
+        wordSetConfuse.add(3, wordConfuseFour);
+        wordSetConfuse.add(4, wordConfuseFive);
+
+        wordSetCorrect.add(0,new String[]{"are", "How", "you?"});
+        wordSetCorrect.add(1,new String[]{"name?", "is", "What","your"});
+        wordSetCorrect.add(2,new String[]{"do", "live?", "Where","you"});
+        wordSetCorrect.add(3,new String[]{"much", "Thank", "very","you"});
+        wordSetCorrect.add(4,new String[]{"me", "Excuse"});
     }
 
     public void setupGreetingsToTranslate(){
-        greetingsToTranslateList.add(0,"");
-        greetingsToTranslateList.add(1,"");
-        greetingsToTranslateList.add(2,"");
-        greetingsToTranslateList.add(3,"");
-        greetingsToTranslateList.add(4,"");
+        greetingsToTranslateList.add(0,"Habari Za Asubuhi");
+        greetingsToTranslateList.add(1,"Habari za jioni");
+        greetingsToTranslateList.add(2,"U hali gani");
+        greetingsToTranslateList.add(3,"Tuonane kesho");
+        greetingsToTranslateList.add(4,"Uende salama");
 
-        greetingsTranslatedList.add(0,"");
-        greetingsTranslatedList.add(1, "");
-        greetingsTranslatedList.add(2,"");
-        greetingsTranslatedList.add(3,"");
-        greetingsTranslatedList.add(4,"");
+        greetingsTranslatedList.add(0,"Good morning");
+        greetingsTranslatedList.add(1, "Good evening");
+        greetingsTranslatedList.add(2,"How are you fairing?");
+        greetingsTranslatedList.add(3,"Let's meet tomorrow");
+        greetingsTranslatedList.add(4,"Go safely");
 
-        greetingsWordCorrectList.add(0,"");
-        greetingsWordCorrectList.add(1,"");
-        greetingsWordCorrectList.add(2,"");
-        greetingsWordCorrectList.add(3,"");
-        greetingsWordCorrectList.add(4,"");
+        greetingsWordCorrectList.add(0,new String[]{"morning", "Good"});
+        greetingsWordCorrectList.add(1,new String[]{"evening","Good"});
+        greetingsWordCorrectList.add(2,new String[]{"fairing","How","you","are"});
+        greetingsWordCorrectList.add(3,new String[]{"meet","Lets", "tomorrow"});
+        greetingsWordCorrectList.add(4,new String[]{"safely","Go"});
 
-        greetingsWordConfuseList.add(0,"");
-        greetingsWordConfuseList.add(1,"");
-        greetingsWordConfuseList.add(2,"");
-        greetingsWordConfuseList.add(3,"");
-        greetingsWordConfuseList.add(4,"");
+        greetingsWordConfuseList.add(0,new String[]{"mornings","god","moaning"});
+        greetingsWordConfuseList.add(1,new String[]{"night","best"});
+        greetingsWordConfuseList.add(2,new String[]{"why","fearing","is"});
+        greetingsWordConfuseList.add(3,new String[]{"met","yesterday"});
+        greetingsWordConfuseList.add(4,new String[]{"safety","went"});
     }
 
     public void setupNumbersToTranslate(){
@@ -115,17 +227,17 @@ public class FixedDataSource {
         numbersTranslatedList.add(3,"Four");
         numbersTranslatedList.add(4,"Five");
 
-        numbersWordCorrectList.add(0,new String[]{"One"});
-        numbersWordCorrectList.add(1, new String[]{"Two"});
-        numbersWordCorrectList.add(2, new String[]{"Three"});
-        numbersWordCorrectList.add(3, new String[]{"Four"});
-        numbersWordCorrectList.add(4, new String[]{"Five"});
+        numbersWordCorrectList.add(0, new String[]{"One"});
+        numbersWordCorrectList.add(1,new String[]{"Two"});
+        numbersWordCorrectList.add(2,new String[]{"Three"});
+        numbersWordCorrectList.add(3,new String[]{"Four"});
+        numbersWordCorrectList.add(4,new String[]{"Five"});
 
-        numbersWordConfuseList.add(0, new String[]{"Un","On","Uno"});
-        numbersWordConfuseList.add(1, new String[]{"To","Deu","Tw"});
-        numbersWordConfuseList.add(2, new String[]{"Tree","Thri"});
-        numbersWordConfuseList.add(3, new String[]{"For","Fur"});
-        numbersWordConfuseList.add(4, new String[]{"Fi","Ve"});
+        numbersWordConfuseList.add(0,new String[]{"Uno","On"});
+        numbersWordConfuseList.add(1,new String[]{"Twi","Twa"});
+        numbersWordConfuseList.add(2,new String[]{"Thre","Tree"});
+        numbersWordConfuseList.add(3,new String[]{"Fou","For"});
+        numbersWordConfuseList.add(4,new String[]{"Fi","ve"});
     }
 
     public void setupColoursToTranslate(){
@@ -155,24 +267,10 @@ public class FixedDataSource {
     }
 
     public void setupWordsToConfuse() {
-        String[] wordConfuseOne={"Mine","Is","Why"};
-        String[] wordConfuseTwo={"Yours","Are"};
-        String[] wordConfuseThree= {"Leave","Does"};
-        String[] wordConfuseFour={"Too","Thanks"};
-        String[] wordConfuseFive={"Excuses","You"};
 
-        wordSetConfuse.add(0, wordConfuseOne);
-        wordSetConfuse.add(1, wordConfuseTwo);
-        wordSetConfuse.add(2, wordConfuseThree);
-        wordSetConfuse.add(3, wordConfuseFour);
-        wordSetConfuse.add(4, wordConfuseFive);
     }
 
     public void setupCorrectWords(){
-        wordSetCorrect.add(0,new String[]{"are", "How", "you?"});
-        wordSetCorrect.add(1,new String[]{"name?", "is", "What","your"});
-        wordSetCorrect.add(2,new String[]{"do", "live?", "Where","you"});
-        wordSetCorrect.add(3,new String[]{"much", "Thank", "very","you"});
-        wordSetCorrect.add(4,new String[]{"me", "Excuse"});
+
     }
 }

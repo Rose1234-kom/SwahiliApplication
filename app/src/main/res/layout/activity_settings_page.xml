@@ -34,54 +34,6 @@
             android:textStyle="bold"
             android:textSize="18sp"/>
     </RelativeLayout>
-    
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/profile_icon"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Rose Komen"
-                android:textColor="@color/black"
-                android:textSize="22dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+254 702497815"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:layout_gravity="center"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:paddingStart="30dp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_back_secondary_100"
-                android:textAllCaps="false"
-                android:text="Edit Profile"
-                android:textColor="@color/black"
-                android:paddingEnd="20dp"/>
-           </LinearLayout>
-    </ScrollView>
 
     <ScrollView
         android:layout_width="match_parent"

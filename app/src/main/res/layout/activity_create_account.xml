@@ -56,6 +56,32 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/country_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner"
+            android:hint="Country"
+            style="@style/Widget.AppCompat.Spinner"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/purpose_learn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner"
+            android:hint="Purpose Of Learning"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/create_account_btn"
             android:layout_width="match_parent"
@@ -74,8 +100,6 @@
             android:visibility="gone"
             android:layout_marginTop="12dp"/>
     </LinearLayout>
-
-
 </RelativeLayout>
     
     

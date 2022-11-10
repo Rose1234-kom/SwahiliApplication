@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -13,25 +12,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.swahiliapplication.ConstantValues;
+import com.example.swahiliapplication.Models.UserInformation;
+import com.example.swahiliapplication.Models.UserName;
 import com.example.swahiliapplication.R;
 import com.example.swahiliapplication.SwahiliLevels;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -121,14 +118,17 @@ handleReceivedFirebaseLink();
     }
 
     private void initialiseData(String userId){
-        final String timestamp = "" + System.currentTimeMillis();
-        HashMap <String, Object > hashMap = new HashMap<>();
-        hashMap.put("uid", ""+ userId);
-        hashMap.put("email",""+ emailAddress);
-        hashMap.put("userName","");
-        hashMap.put("timestamp", ""+timestamp);
-        DatabaseReference ref = constantValues.getFirebaseDatabase().getReference("Users").child(userId);
-        ref.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        UserInformation userInformation = new UserInformation();
+        ArrayList<String> learnPurposes=new ArrayList<>();
+        learnPurposes.add("");
+        userInformation.setUserId(userId);
+        userInformation.setEmailAddress(emailAddress);
+        userInformation.setUserName("");
+        userInformation.setCountry("");
+        userInformation.setDailyGoal("");
+        userInformation.setLearningPurposes(learnPurposes);
+        DocumentReference ref = constantValues.getFirebaseFirestore().collection("Users").document(userId);
+        ref.set(userInformation).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -139,30 +139,22 @@ handleReceivedFirebaseLink();
             }
         });
     }
+
     private void saveFirebaseData() {
         progressDialog.setMessage("Saving Account info...");
 
-        final String timestamp = "" + System.currentTimeMillis();
         // set data to save
 
-        HashMap <String, Object > hashMap = new HashMap<>();
-        hashMap.put("uid", ""+ firebaseAuth.getUid());
-        hashMap.put("email",""+ userName);
-        hashMap.put("timestamp", ""+timestamp);
+        UserInformation userInformation = new UserInformation();
+        userInformation.setUserId(firebaseAuth.getUid());
+        userInformation.setUserName(userName);
+        userInformation.setEmailAddress(emailAddress);
 
+        UserName userNameMap = new UserName();
 
-        HashMap <String, Object > userNameMap = new HashMap<>();
-        hashMap.put("uid", ""+ userId);
-        hashMap.put("timestamp", ""+timestamp);
-
-        HashMap <String, Object > userNameUpdMap = new HashMap<>();
-        hashMap.put("userName", ""+ userName);
-        hashMap.put("timestamp", ""+timestamp);
-
-
-        DatabaseReference ref = constantValues.getFirebaseDatabase().getReference("Users");
-        DatabaseReference userNameRef = constantValues.getFirebaseDatabase().getReference("UserName").child(userName);
-        userNameRef.setValue(userNameMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        DocumentReference ref = constantValues.getFirebaseFirestore().collection("Users").document(userName);
+        DocumentReference userNameRef = constantValues.getFirebaseFirestore().collection("UserName").document(userName);
+        userNameRef.set(userNameMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -172,8 +164,7 @@ handleReceivedFirebaseLink();
                 }
             }
         });
-
-        ref.child(userId).updateChildren(userNameUpdMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.update("userName",userName).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -199,12 +190,12 @@ handleReceivedFirebaseLink();
 
     boolean validateData(String userName){
         //validate the data that are input by user
-        DatabaseReference userNameRef = constantValues.getFirebaseDatabase().getReference("UserName").child(userName);
-        userNameRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        DocumentReference userNameRef = constantValues.getFirebaseFirestore().collection("UserName").document(userName);
+        userNameRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
-                    DataSnapshot snapshot=task.getResult();
+                    DocumentSnapshot snapshot=task.getResult();
                     if(snapshot.exists()){
                         userNameText.setError("Sorry. This username has been taken");
                         userNameText.requestFocus();
@@ -219,15 +210,16 @@ handleReceivedFirebaseLink();
     }
 
     private void readExistingUserInfo(String userId){
-        DatabaseReference reference=constantValues.getFirebaseDatabase().getReference("Users").child(userId);
-        reference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        DocumentReference reference=constantValues.getFirebaseFirestore().collection("Users").document(userId);
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
-                    DataSnapshot snapshot=task.getResult();
+                    DocumentSnapshot snapshot=task.getResult();
                     if(snapshot.exists()){
                         //Check for username and email
                         startActivity(new Intent(CreateAccountActivity.this, SwahiliLevels.class));
+                        finish();
                     }else{
 
                     }

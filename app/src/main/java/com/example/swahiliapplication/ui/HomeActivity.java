@@ -37,11 +37,11 @@ public class HomeActivity extends AppCompatActivity {
                         fragment=new SwahiliLevels();
                         break;
                     case R.id.swahiliProfile:
-                        fragment=new NotificationFragment();
+                        fragment=new UserProfile();
                         break;
 
                     case R.id.swahiliHighScore:
-                        fragment=new SettingsPage();
+                        fragment=new NotificationFragment();
                         break;
                 }
                 return loadFragment(fragment);
