@@ -92,8 +92,8 @@ public class FixedDataSource {
         greetingsWordCorrectList.add(0,new String[]{"morning", "Good"});
         greetingsWordCorrectList.add(1,new String[]{"evening","Good"});
         greetingsWordCorrectList.add(2,new String[]{"fairing","How","you","are"});
-        greetingsWordCorrectList.add(3,new String[]{""});
-        greetingsWordCorrectList.add(4,new String[]{""});
+        greetingsWordCorrectList.add(3,new String[]{"meet","Lets", "tomorrow"});
+        greetingsWordCorrectList.add(4,new String[]{"safely","Go"});
 
         greetingsWordConfuseList.add(0,new String[]{""});
         greetingsWordConfuseList.add(1,new String[]{""});

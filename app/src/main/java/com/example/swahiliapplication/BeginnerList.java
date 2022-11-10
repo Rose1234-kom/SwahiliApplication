@@ -19,6 +19,7 @@ public class BeginnerList extends AppCompatActivity {
 
         introduction = findViewById(R.id.button);
         greetings=findViewById(R.id.button2);
+        numbers=findViewById(R.id.button3);
         introduction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,6 +33,14 @@ public class BeginnerList extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(BeginnerList.this, WordTaskActivity.class);
                 intent.putExtra("Action","Greetings");
+                startActivity(intent);
+            }
+        });
+        numbers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(BeginnerList.this, WordTaskActivity.class);
+                intent.putExtra("Action","Numbers");
                 startActivity(intent);
             }
         });

@@ -140,8 +140,12 @@ public class WordTaskActivity extends AppCompatActivity {
             dataSource.setupSentencesToTranslate();
 
             setupSentenceAndWords();
-            showWordsOnLine();
+
+        }else if(getIntent().getStringExtra("Action").equals("Greetings")){
+            dataSource.setupGreetingsToTranslate();
+
         }
+        showWordsOnLine();
         // initData();
     }
 
