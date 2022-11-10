@@ -9,7 +9,7 @@
         android:id="@+id/bottom_navigation_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=" 2"
+        android:layout_weight="2"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
