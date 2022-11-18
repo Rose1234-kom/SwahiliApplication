@@ -15,11 +15,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.swahiliapplication.Models.LearnerProgress;
 import com.example.swahiliapplication.bottomnavigationfragmentdemo.HomeFragment;
 import com.example.swahiliapplication.bottomnavigationfragmentdemo.NotificationFragment;
 import com.example.swahiliapplication.bottomnavigationfragmentdemo.SettingsFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.checkerframework.checker.units.qual.C;
+
+import java.util.ArrayList;
 
 public class SwahiliLevels extends Fragment {
     AppCompatButton beginnerBtn;
@@ -32,6 +42,8 @@ public class SwahiliLevels extends Fragment {
     SettingsFragment settingsFragment = new SettingsFragment();
     NotificationFragment notificationFragment = new NotificationFragment();
     View view;
+    ConstantValues constantValues=new ConstantValues();
+
 
     public static void showToast(Context context,String message) {
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
@@ -54,6 +66,7 @@ public class SwahiliLevels extends Fragment {
 
 
     }
+
 
     @Override
     public void onStart() {

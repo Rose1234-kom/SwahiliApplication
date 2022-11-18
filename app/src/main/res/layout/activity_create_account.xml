@@ -52,35 +52,42 @@
             android:hint="User Name"
             android:inputType="textEmailAddress"
             android:padding="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/country_select"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_corner"
             android:hint="Country"
-            style="@style/Widget.AppCompat.Spinner"
-            android:inputType="textEmailAddress"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:inputType="text"
             android:padding="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
-
-        <com.google.android.material.textview.MaterialTextView
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/purpose_learn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_corner"
             android:hint="Purpose Of Learning"
-            style="@style/Widget.AppCompat.Spinner.DropDown"
-            android:inputType="textEmailAddress"
+            style="@style/Widget.AppCompat.Spinner"
+            android:inputType="text"
             android:padding="16dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/create_account_btn"

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/default_light_yellow_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start_guideline"
@@ -47,6 +48,7 @@
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintTop_toBottomOf="@id/top_guideline"
         app:layout_constraintBottom_toTopOf="@id/my_profile_text"
+        android:src="@drawable/profile_icon"
         android:id="@+id/user_profile_img"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -54,18 +56,24 @@
         android:layout_height="wrap_content"
         android:id="@+id/my_profile_text"
         android:text="My Profile"
+        android:layout_marginTop="5dp"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textColor="#000000"
         android:textStyle="bold"
+        android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
-        app:layout_constraintTop_toBottomOf="@id/user_profile_img"
+        app:layout_constraintTop_toBottomOf="@id/username_text"
         app:layout_constraintBottom_toTopOf="@id/level_text"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/username_text"
+        android:textSize="18sp"
+        android:layout_marginBottom="30dp"
+        android:textColor="#000000"
+        android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintTop_toBottomOf="@id/user_profile_img"
@@ -74,8 +82,25 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/level_text"
+        android:id="@+id/level_text_show"
+        android:text="Level"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/level_text"
+        app:layout_constraintTop_toBottomOf="@id/username_text"
+        app:layout_constraintBottom_toTopOf="@id/purpose_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_text"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textAlignment="textEnd"
+        app:layout_constraintStart_toEndOf="@id/level_text_show"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintTop_toBottomOf="@id/username_text"
         app:layout_constraintBottom_toTopOf="@id/purpose_text"/>
@@ -83,8 +108,24 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/purpose_text"
+        android:id="@+id/purpose_text_show"
+        android:text="Purpose(s) of learning"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/purpose_text"
+        app:layout_constraintTop_toBottomOf="@id/level_text"
+        app:layout_constraintBottom_toTopOf="@id/goal_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/purpose_text"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textAlignment="textEnd"
+        app:layout_constraintStart_toEndOf="@id/purpose_text_show"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintTop_toBottomOf="@id/level_text"
         app:layout_constraintBottom_toTopOf="@id/goal_text"/>
@@ -92,8 +133,24 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/goal_text"
+        android:id="@+id/goal_text_show"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="Goal"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/goal_text"
+        app:layout_constraintTop_toBottomOf="@id/purpose_text"
+        app:layout_constraintBottom_toTopOf="@id/nationality_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/goal_text"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textAlignment="textEnd"
+        app:layout_constraintStart_toEndOf="@id/goal_text_show"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintTop_toBottomOf="@id/purpose_text"
         app:layout_constraintBottom_toTopOf="@id/nationality_text"/>
@@ -101,8 +158,24 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/nationality_text"
+        android:id="@+id/nationality_text_show"
+        android:text="Nationality"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/nationality_text"
+        app:layout_constraintTop_toBottomOf="@id/user_profile_img"
+        app:layout_constraintBottom_toTopOf="@id/bottom_guideline"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nationality_text"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textAlignment="textEnd"
+        app:layout_constraintStart_toEndOf="@id/nationality_text_show"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintTop_toBottomOf="@id/user_profile_img"
         app:layout_constraintBottom_toTopOf="@id/bottom_guideline"/>

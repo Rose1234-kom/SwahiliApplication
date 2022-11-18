@@ -47,8 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
-                goToSignInScreen();
+                goToGetStartedScreen();
             }
         });
     }
