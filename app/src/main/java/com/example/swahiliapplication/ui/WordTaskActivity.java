@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class WordTaskActivity extends AppCompatActivity {
     TextView textView;
     TextToSpeech textToSpeech;
     private Random random;
+    private MaterialButton showAns;
     private int pos, cont;
     private FixedDataSource dataSource;
     private ArrayList<String> answeredCorrect = new ArrayList<>();
@@ -658,21 +660,57 @@ public class WordTaskActivity extends AppCompatActivity {
                 if (action.equals("Introduction")) {
                     if(cont>0){
                         cont+=1;
-                        if (cont >= dataSource.getSentenceToTranslateList().size()) {
-                            showDialogScorePerfect();
-                        } else {
-                            dataSource.getSentencesAnsweredCorrectList().set(cont, true);
-                            setupSentenceAndWords(cont, dataSource.getSentenceToTranslateList(), dataSource.getSentencesAnsweredCorrectList(), dataSource.getSentencesAnsweredWrongList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
+                        int[] tmp=new int[dataSource.getSentencesAnsweredWrongList().size()];
+                        for(int i=0;i<dataSource.getSentencesAnsweredWrongList().size();i++){
+                            if(dataSource.getSentencesAnsweredWrongList().get(i)){
+                                tmp[i]=i;
+                            }
+                        }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            if (cont >= dataSource.getSentenceToTranslateList().size()) {
+                                showDialogScorePerfect(5);
+                            }else if (cont >= dataSource.getSentenceToTranslateList().size() && dataSource.getSentencesAnsweredCorrectList().stream().noneMatch(b -> b)) {
+                                showDialogScorePerfect(0);
+                            } else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length==4) {
+                                showDialogScorePerfect(1);
+                            }else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length==3) {
+                                showDialogScorePerfect(2);
+                            }else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length==2) {
+                                showDialogScorePerfect(3);
+                            }else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length==1) {
+                                showDialogScorePerfect(4);
+                            } else {
+                                dataSource.getSentencesAnsweredCorrectList().set(cont, true);
+                                setupSentenceAndWords(cont, dataSource.getSentenceToTranslateList(), dataSource.getSentencesAnsweredCorrectList(), dataSource.getSentencesAnsweredWrongList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
+                            }
                         }
                     }
                     else {
                         inc += 1;
-                        if (inc >= dataSource.getSentenceToTranslateList().size()) {
-                            showDialogScorePerfect();
-                        } else {
-                            answeredCorrect.add(dataSource.getSentenceToTranslateList().get(pos));
-                            dataSource.getSentencesAnsweredCorrectList().set(pos, true);
-                            setupSentenceAndWords(dataSource.getSentenceToTranslateList(), dataSource.getSentencesAnsweredCorrectList(), dataSource.getSentencesAnsweredWrongList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
+                        int[] tmp=new int[dataSource.getSentencesAnsweredWrongList().size()];
+                        for(int i=0;i<dataSource.getSentencesAnsweredWrongList().size();i++){
+                            if(dataSource.getSentencesAnsweredWrongList().get(i)){
+                                tmp[i]=i;
+                            }
+                        }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            if (cont >= dataSource.getSentenceToTranslateList().size() && dataSource.getSentencesAnsweredCorrectList().stream().allMatch(b -> b)) {
+                                showDialogScorePerfect(5);
+                            } else if (cont >= dataSource.getSentenceToTranslateList().size() && dataSource.getSentencesAnsweredCorrectList().stream().noneMatch(b -> b)) {
+                                showDialogScorePerfect(0);
+                            } else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length == 4) {
+                                showDialogScorePerfect(1);
+                            } else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length == 3) {
+                                showDialogScorePerfect(2);
+                            } else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length == 2) {
+                                showDialogScorePerfect(3);
+                            } else if (cont >= dataSource.getSentenceToTranslateList().size() && tmp.length == 1) {
+                                showDialogScorePerfect(4);
+                            } else {
+                                answeredCorrect.add(dataSource.getSentenceToTranslateList().get(pos));
+                                dataSource.getSentencesAnsweredCorrectList().set(pos, true);
+                                setupSentenceAndWords(dataSource.getSentenceToTranslateList(), dataSource.getSentencesAnsweredCorrectList(), dataSource.getSentencesAnsweredWrongList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
+                            }
                         }
                     }
                 } else if (action.equals("Greetings")) {
@@ -708,6 +746,7 @@ public class WordTaskActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
                 progressBar.setProgress(prog++);
                 if (action.equals("Introduction")) {
+                    dataSource.getSentencesAnsweredWrongList().set(pos, true);
                     setupSentenceAndWords(dataSource.getSentenceToTranslateList(), dataSource.getSentencesAnsweredCorrectList(), dataSource.getSentencesAnsweredWrongList(), dataSource.getWordSetCorrect(), dataSource.getWordSetConfuse());
                 } else if (action.equals("Greetings")) {
 //                    setupSentenceAndWords(dataSource.getGreetingsToTranslateList(), dataSource.getGreetingsTranslatedList(), dataSource.getGreetingsWordCorrectList(), dataSource.getGreetingsWordConfuseList());
@@ -850,7 +889,8 @@ public class WordTaskActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }else{
+            }
+            else{
                 {
                     pos = index;
                     questionText.setText(elementsTranslate.get(index));
@@ -1006,7 +1046,7 @@ public class WordTaskActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (elementsAnsweredCorrect.stream().allMatch(b -> b)) {
-                showDialogScorePerfect();
+                showDialogScorePerfect(5);
             }
         }
     }
@@ -1088,18 +1128,23 @@ public class WordTaskActivity extends AppCompatActivity {
             }
         }
         if (last>=elementsTranslate.size()) {
-            showDialogScorePerfect();
+            showDialogScorePerfect(5);
         }
     }
 
-    private void showDialogScorePerfect() {
+    private void showDialogScorePerfect(int starCount) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(WordTaskActivity.this);
         ViewGroup viewGroup = findViewById(android.R.id.content);
         View custDialog = LayoutInflater.from(WordTaskActivity.this).inflate(R.layout.perfect_score_layout, viewGroup, false);
+        RatingBar star=custDialog.findViewById(R.id.star);
+        star.setMax(5);
+        star.setNumStars(5);
+        star.setRating(starCount);
         dialog.setView(custDialog);
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
         MaterialButton continueLevel = alertDialog.findViewById(R.id.continue_level);
+        showAns = alertDialog.findViewById(R.id.show_ques);
         continueLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

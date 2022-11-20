@@ -14,30 +14,29 @@ import android.widget.TextView;
 
 import com.example.swahiliapplication.ui.WelcomeActivity;
 
-public class SettingsPage extends Fragment {
-
-    View view;
+public class SettingsPage extends AppCompatActivity {
     TextView logoutText;
     ConstantValues constantValues=new ConstantValues();
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.activity_settings_page,container,false);
-        logoutText=view.findViewById(R.id.log_out);
-        return view;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings_page);
+        logoutText=findViewById(R.id.log_out);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onStart() {
+        super.onStart();
         logoutText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(ConstantValues.getFirebaseAuth().getCurrentUser()!=null) {
                     ConstantValues.getFirebaseAuth().signOut();
-                    startActivity(new Intent(getActivity(), WelcomeActivity.class));
+                    startActivity(new Intent(SettingsPage.this, WelcomeActivity.class));
                 }
             }
         });
     }
+
 }

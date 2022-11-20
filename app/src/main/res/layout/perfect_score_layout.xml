@@ -41,6 +41,17 @@
         app:layout_constraintTop_toBottomOf="@id/top_guideline"
         android:src="@drawable/jobgreat" />
 
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/job_great_gif"
+        app:layout_constraintBottom_toTopOf="@id/text_score"
+
+        android:id="@+id/star"
+        android:stepSize="1"
+        android:numStars="5"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -63,5 +74,18 @@
         app:layout_constraintStart_toEndOf="@id/start_guideline"
         app:layout_constraintEnd_toStartOf="@id/end_guideline"
         app:layout_constraintTop_toBottomOf="@id/job_great_gif"
+        app:layout_constraintBottom_toTopOf="@id/show_ques"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/show_ques"
+        android:text="Show Answers"
+        android:backgroundTint="@color/black"
+        app:cornerRadius="50dp"
+        app:layout_constraintStart_toEndOf="@id/start_guideline"
+        app:layout_constraintEnd_toStartOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/continue_level"
         app:layout_constraintBottom_toTopOf="@id/bottom_guideline"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
